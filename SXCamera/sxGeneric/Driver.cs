@@ -781,7 +781,7 @@ namespace ASCOM.SXGeneric
                         catch (System.Exception ex)
                         {
                             sxCamera = null;
-                            m_Connected = true;
+                            m_Connected = false;
                             throw new ASCOM.DriverException(SetError(String.Format("Unable to complete {0} request - ex = {1}\n", MethodBase.GetCurrentMethod().Name, ex.ToString())), ex);
                         }
                         // setup state variables

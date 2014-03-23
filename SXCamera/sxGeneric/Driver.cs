@@ -1700,9 +1700,11 @@ namespace ASCOM.SXGeneric
             {
                 Log.Write(String.Format("Generic::softwareCapture({0}, {1}): begins\n", Duration, Light));
 
+                // Clear everything - we may clear it again just before 
+                // the exposure ends to clear any accumulated noise.
                 sxCamera.clearRegisters();
-                sxCamera.clearCCDAndRegisters(); // Clear everything - we may clear it again just before 
-                                                 // the exposure ends to clear any accumulated noise.
+                sxCamera.clearCCDAndRegisters(); 
+
                 if (Light && Duration > 0)
                 {
                     shutterIsOpen = true;
@@ -1803,6 +1805,16 @@ namespace ASCOM.SXGeneric
                         return;
                     }
                     state = CameraStates.cameraExposing;
+                }
+
+                for(int i=0;i<m_config.extraCCDFlushes;i++)
+                {
+                    // For some cameras, it is beneficial to clear multiple times at
+                    // the beginning of an exposure to get rid of all the residual
+                    // charge.
+                    
+                    sxCamera.clearRegisters();
+                    sxCamera.clearCCDAndRegisters(); 
                 }
 
                 if (useHardwareTimer)

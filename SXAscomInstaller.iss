@@ -27,7 +27,8 @@ OutputBaseFilename="SXAscomInstaller-v{#APP_VERSION}"
 Compression=lzma
 SolidCompression=yes
 ; Put there by Platform if Driver Installer Support selected
-WizardImageFile="C:\Program Files (x86)\ASCOM\InstallGen\Resources\WizardImage.bmp"
+;WizardImageFile="C:\Program Files (x86)\ASCOM\InstallGen\Resources\WizardImage.bmp"
+WizardImageFile="C:\Program Files\ASCOM\InstallGen\Resources\WizardImage.bmp"
 LicenseFile="CreativeCommons.txt"
 
 ; {cf}\ASCOM\Uninstall\Camera folder created by Platform, always

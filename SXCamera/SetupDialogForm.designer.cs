@@ -48,6 +48,7 @@ namespace ASCOM.SXCamera
             this.usbGroup = new System.Windows.Forms.GroupBox();
             this.advancedUSBParmsEnabled = new System.Windows.Forms.CheckBox();
             this.binGroup = new System.Windows.Forms.GroupBox();
+            this.colorBinning = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.fixedBin = new System.Windows.Forms.NumericUpDown();
             this.fixedBinning = new System.Windows.Forms.CheckBox();
@@ -71,7 +72,8 @@ namespace ASCOM.SXCamera
             this.waitForCooldown = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.hardwareExposureThreshold = new System.Windows.Forms.NumericUpDown();
-            this.colorBinning = new System.Windows.Forms.CheckBox();
+            this.extraFlushLabel = new System.Windows.Forms.Label();
+            this.extraCCDFlushes = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picASCOM)).BeginInit();
             this.usbGroup.SuspendLayout();
             this.binGroup.SuspendLayout();
@@ -82,6 +84,7 @@ namespace ASCOM.SXCamera
             ((System.ComponentModel.ISupportInitialize)(this.doubleExposureThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gaussianBlurRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hardwareExposureThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extraCCDFlushes)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -128,8 +131,8 @@ namespace ASCOM.SXCamera
             this.picASCOM.TabIndex = 3;
             this.picASCOM.TabStop = false;
             this.toolTip1.SetToolTip(this.picASCOM, "Click to visit the ASCOM web site.");
-            this.picASCOM.DoubleClick += new System.EventHandler(this.BrowseToAscom);
             this.picASCOM.Click += new System.EventHandler(this.BrowseToAscom);
+            this.picASCOM.DoubleClick += new System.EventHandler(this.BrowseToAscom);
             // 
             // EnableLoggingCheckBox
             // 
@@ -240,8 +243,8 @@ namespace ASCOM.SXCamera
             this.Copyright.Name = "Copyright";
             this.Copyright.Size = new System.Drawing.Size(254, 57);
             this.Copyright.TabIndex = 103;
-            this.Copyright.Text = "Copyright (C) 2010 Dad Dog Development Ltd.\r\nThis work is licensed under the Crea" +
-                "tive Commons Attribution-No Derivative Works 3.0 License.";
+            this.Copyright.Text = "Copyright (C) 2010-2014 Dad Dog Development Ltd.\r\nThis work is licensed under the" +
+    " Creative Commons Attribution-No Derivative Works 3.0 License.";
             // 
             // usbGroup
             // 
@@ -252,7 +255,7 @@ namespace ASCOM.SXCamera
             this.usbGroup.Controls.Add(this.selectionExactModel);
             this.usbGroup.Controls.Add(this.VID);
             this.usbGroup.Controls.Add(this.selectionExcludeModel);
-            this.usbGroup.Location = new System.Drawing.Point(383, 292);
+            this.usbGroup.Location = new System.Drawing.Point(384, 320);
             this.usbGroup.Name = "usbGroup";
             this.usbGroup.Size = new System.Drawing.Size(161, 168);
             this.usbGroup.TabIndex = 4;
@@ -281,7 +284,7 @@ namespace ASCOM.SXCamera
             this.binGroup.Controls.Add(this.xBinLabel);
             this.binGroup.Controls.Add(this.maxXBin);
             this.binGroup.Controls.Add(this.binLabel);
-            this.binGroup.Location = new System.Drawing.Point(15, 292);
+            this.binGroup.Location = new System.Drawing.Point(16, 320);
             this.binGroup.Margin = new System.Windows.Forms.Padding(2);
             this.binGroup.Name = "binGroup";
             this.binGroup.Padding = new System.Windows.Forms.Padding(2);
@@ -289,6 +292,16 @@ namespace ASCOM.SXCamera
             this.binGroup.TabIndex = 105;
             this.binGroup.TabStop = false;
             this.binGroup.Text = "Binning Control";
+            // 
+            // colorBinning
+            // 
+            this.colorBinning.AutoSize = true;
+            this.colorBinning.Location = new System.Drawing.Point(6, 19);
+            this.colorBinning.Name = "colorBinning";
+            this.colorBinning.Size = new System.Drawing.Size(137, 17);
+            this.colorBinning.TabIndex = 12;
+            this.colorBinning.Text = "M26C 2x2 color binning";
+            this.colorBinning.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -443,7 +456,7 @@ namespace ASCOM.SXCamera
             this.groupBox2.Controls.Add(this.doubleExposeShort);
             this.groupBox2.Controls.Add(this.equalizeFrames);
             this.groupBox2.Controls.Add(this.gaussianBlur);
-            this.groupBox2.Location = new System.Drawing.Point(202, 292);
+            this.groupBox2.Location = new System.Drawing.Point(203, 320);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(160, 168);
             this.groupBox2.TabIndex = 108;
@@ -564,7 +577,7 @@ namespace ASCOM.SXCamera
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 263);
+            this.label6.Location = new System.Drawing.Point(16, 291);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(203, 13);
             this.label6.TabIndex = 110;
@@ -573,7 +586,7 @@ namespace ASCOM.SXCamera
             // hardwareExposureThreshold
             // 
             this.hardwareExposureThreshold.DecimalPlaces = 2;
-            this.hardwareExposureThreshold.Location = new System.Drawing.Point(224, 261);
+            this.hardwareExposureThreshold.Location = new System.Drawing.Point(225, 289);
             this.hardwareExposureThreshold.Name = "hardwareExposureThreshold";
             this.hardwareExposureThreshold.Size = new System.Drawing.Size(57, 20);
             this.hardwareExposureThreshold.TabIndex = 111;
@@ -584,21 +597,30 @@ namespace ASCOM.SXCamera
             0,
             65536});
             // 
-            // colorBinning
+            // extraFlushLabel
             // 
-            this.colorBinning.AutoSize = true;
-            this.colorBinning.Location = new System.Drawing.Point(6, 19);
-            this.colorBinning.Name = "colorBinning";
-            this.colorBinning.Size = new System.Drawing.Size(137, 17);
-            this.colorBinning.TabIndex = 12;
-            this.colorBinning.Text = "M26C 2x2 color binning";
-            this.colorBinning.UseVisualStyleBackColor = true;
+            this.extraFlushLabel.AutoSize = true;
+            this.extraFlushLabel.Location = new System.Drawing.Point(15, 263);
+            this.extraFlushLabel.Name = "extraFlushLabel";
+            this.extraFlushLabel.Size = new System.Drawing.Size(168, 13);
+            this.extraFlushLabel.TabIndex = 112;
+            this.extraFlushLabel.Text = "Number of additional CCD Flushes";
+            // 
+            // extraCCDFlushes
+            // 
+            this.extraCCDFlushes.Location = new System.Drawing.Point(191, 263);
+            this.extraCCDFlushes.Name = "extraCCDFlushes";
+            this.extraCCDFlushes.Size = new System.Drawing.Size(51, 20);
+            this.extraCCDFlushes.TabIndex = 113;
+            this.extraCCDFlushes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // SetupDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 472);
+            this.ClientSize = new System.Drawing.Size(569, 500);
+            this.Controls.Add(this.extraCCDFlushes);
+            this.Controls.Add(this.extraFlushLabel);
             this.Controls.Add(this.hardwareExposureThreshold);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.waitForCooldown);
@@ -636,6 +658,7 @@ namespace ASCOM.SXCamera
             ((System.ComponentModel.ISupportInitialize)(this.doubleExposureThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gaussianBlurRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hardwareExposureThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extraCCDFlushes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -686,5 +709,7 @@ namespace ASCOM.SXCamera
         public System.Windows.Forms.CheckBox waitForCooldown;
         public System.Windows.Forms.NumericUpDown hardwareExposureThreshold;
         public System.Windows.Forms.CheckBox colorBinning;
+        private System.Windows.Forms.Label extraFlushLabel;
+        public System.Windows.Forms.NumericUpDown extraCCDFlushes;
     }
 }

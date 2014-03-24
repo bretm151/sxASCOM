@@ -99,6 +99,9 @@ namespace ASCOM.SXCamera
         private const string KEY_HARDWARE_EXPOSURE_THRESHOLD = "HardwareExposureThreshold";
         private const double DEFAULT_HARDWARE_EXPOSURE_THRESHOLD = 2.0;
 
+        private const string KEY_EXTRA_CCD_FLUSHES = "ExtraCCDFlushes";
+        private const UInt16 DEFAULT_EXTRA_CCD_FLUSHES = 0;
+
         private const string KEY_RELEASE_TYPE = "ReleaseType";
         private const Int64 DEFAULT_RELEASE_TYPE = 0;
 
@@ -139,6 +142,7 @@ namespace ASCOM.SXCamera
 
             public bool waitForCooldown;
             public double hardwareExposureThreshold;
+            public UInt16 extraCCDFlushes;
 
             internal CAMERA_VALUES(
                             string selectionMethod, UInt16 VID, UInt16 PID,
@@ -178,6 +182,7 @@ namespace ASCOM.SXCamera
 
                 this.waitForCooldown = DEFAULT_WAIT_FOR_COOLDOWN;
                 this.hardwareExposureThreshold = DEFAULT_HARDWARE_EXPOSURE_THRESHOLD;
+                this.extraCCDFlushes = DEFAULT_EXTRA_CCD_FLUSHES;
             }
         };
 
@@ -580,6 +585,12 @@ namespace ASCOM.SXCamera
         {
             get { return GetDouble(KEY_HARDWARE_EXPOSURE_THRESHOLD, DEFAULT_VALUES[m_whichController].hardwareExposureThreshold); }
             set { SetString(       KEY_HARDWARE_EXPOSURE_THRESHOLD, value.ToString()); }
+        }
+
+        public UInt16 extraCCDFlushes
+        {
+            get { return GetUInt16(KEY_EXTRA_CCD_FLUSHES, DEFAULT_VALUES[m_whichController].extraCCDFlushes); }
+            set { SetString(       KEY_EXTRA_CCD_FLUSHES, value.ToString()); }
         }
 
         public Int64 releaseType

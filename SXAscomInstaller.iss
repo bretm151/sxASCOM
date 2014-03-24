@@ -4,7 +4,7 @@
 ;#define BUILD_TYPE "Release"
 #define EXPIRATION "2014/05/01"
 ;#define EXPIRATION "0"
-#define APP_VERSION "5.5.1.13082a"
+#define APP_VERSION "5.5.1.14082"
 #define ASCOM_VERSION_REQUIRED  "5.5"
 #define DRIVER_EXE_NAME "ASCOM.SXCamera.exe"
 

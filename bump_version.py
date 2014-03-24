@@ -42,10 +42,12 @@ def updateVersion(dirName, fileName, major, minor, revision, build):
             line = re.sub(r'APP_VERSION ".*"', 'APP_VERSION "{0}.{1}.{2}.{3}"'.format(major, minor, revision, build), line)
             lines.append(line)
         file.truncate(0)
+        file.seek(0)
         file.writelines(lines)
 
 
 def updateVersions(major, minor, revision, build):
+    updateVersion(".", "SXAscomInstaller.iss", major, minor, revision, build)
     for root, dirs, files in os.walk("."):
         if ".git" in dirs:
             dirs.remove(".git")
